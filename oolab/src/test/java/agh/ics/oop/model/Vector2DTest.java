@@ -98,10 +98,10 @@ public class Vector2DTest {
         Vector2D v2=new Vector2D(1,3);
         Vector2D v3=new Vector2D(2,-7);
 
-        Assertions.assertEquals(v1.add(v2).getX(),-1);
-        Assertions.assertEquals(v1.add(v2).getY(),5);
-        Assertions.assertEquals(v1.add(v3).getX(),0);
-        Assertions.assertEquals(v1.add(v3).getY(),-5);
+        Assertions.assertEquals(v1.add(v2).x(),-1);
+        Assertions.assertEquals(v1.add(v2).y(),5);
+        Assertions.assertEquals(v1.add(v3).x(),0);
+        Assertions.assertEquals(v1.add(v3).y(),-5);
     }
 
     @Test
@@ -110,10 +110,10 @@ public class Vector2DTest {
         Vector2D v2=new Vector2D(1,3);
         Vector2D v3=new Vector2D(2,-7);
 
-        Assertions.assertEquals(v1.substract(v2).getX(),-3);
-        Assertions.assertEquals(v1.substract(v2).getY(),-1);
-        Assertions.assertEquals(v1.substract(v3).getX(),-4);
-        Assertions.assertEquals(v1.substract(v3).getY(),9);
+        Assertions.assertEquals(v1.subtract(v2).x(),-3);
+        Assertions.assertEquals(v1.subtract(v2).y(),-1);
+        Assertions.assertEquals(v1.subtract(v3).x(),-4);
+        Assertions.assertEquals(v1.subtract(v3).y(),9);
     }
 
     @Test
@@ -123,10 +123,10 @@ public class Vector2DTest {
         Vector2D v3=v1.opposite();
         Vector2D v4=v2.opposite();
 
-        Assertions.assertEquals(v3.getX(),2);
-        Assertions.assertEquals(v3.getY(),-2);
-        Assertions.assertEquals(v4.getX(),-1);
-        Assertions.assertEquals(v4.getY(),0);
+        Assertions.assertEquals(v3.x(),2);
+        Assertions.assertEquals(v3.y(),-2);
+        Assertions.assertEquals(v4.x(),-1);
+        Assertions.assertEquals(v4.y(),0);
     }
 
 }
