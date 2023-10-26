@@ -3,6 +3,7 @@ package agh.ics.oop;
 import agh.ics.oop.model.MoveDirection;
 public class OptionParser {
     public static MoveDirection[] parse(String[]args){
+
         int i=0;
         for(String arg : args){
             if(arg.equals("f") || arg.equals("b") || arg.equals("r")||arg.equals("l")){
@@ -23,6 +24,7 @@ public class OptionParser {
             }
 
             j+=1;
+
         }
         return parsed;
     }
