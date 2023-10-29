@@ -11,24 +11,24 @@ import java.util.List;
 public class SimulationIT {
     @Test
     public void dataInterpretationTest1(){
-        String[] args={"f","f","r",
-                "l", "f","b"};
+        String[] args={"f", "b", "r","l", "f", "f", "r", "r", "f", "f", "f", "f", "f", "f", "f","f"};
         List<MoveDirection> moveDirectionList= OptionParser.parse(args);
-        List<MoveDirection> result =List.of(MoveDirection.FORWARD,MoveDirection.FORWARD,
-                MoveDirection.RIGHT, MoveDirection.LEFT, MoveDirection.FORWARD,MoveDirection.BACKWARD);
+        List<MoveDirection> result =List.of(MoveDirection.FORWARD,MoveDirection.BACKWARD,
+                MoveDirection.RIGHT,MoveDirection.LEFT,MoveDirection.FORWARD,MoveDirection.FORWARD,
+                MoveDirection.RIGHT,MoveDirection.RIGHT,MoveDirection.FORWARD,MoveDirection.FORWARD,MoveDirection.FORWARD,
+                MoveDirection.FORWARD,MoveDirection.FORWARD,MoveDirection.FORWARD,MoveDirection.FORWARD,MoveDirection.FORWARD);
 
         Assertions.assertEquals(result, moveDirectionList);
     }
 
     @Test
     public void dataInterpretationTest2(){
-        String[] args={"f","f","r",
-                        "l", "f","b"};
-        List<Vector2D> positions= List.of(new Vector2D(2,2),new Vector2D(4,4),new Vector2D(3,4));
+        String[] args={"f", "b", "r","l", "f", "f", "r", "r", "f", "f", "f", "f", "f", "f", "f","f"};
+        List<Vector2D> positions= List.of(new Vector2D(2,2),new Vector2D(3,4));
         List<MoveDirection> moveDirectionList= OptionParser.parse(args);
         Simulation simulation=new Simulation(moveDirectionList,positions);
 
-        List<Animal> animals=Arrays.asList(new Animal(new Vector2D(2,2)),new Animal(new Vector2D(4,4)),new Animal(new Vector2D(3,4)));
+        List<Animal> animals=Arrays.asList(new Animal(new Vector2D(2,2)),new Animal(new Vector2D(3,4)));
 
         Assertions.assertNotNull(simulation.getAnimals());
         Assertions.assertTrue(simulation.getAnimals() instanceof List<Animal>);
@@ -42,36 +42,31 @@ public class SimulationIT {
 
     @Test
     public void positionTest(){
-        String[] args={"f","f","r",
-                        "l", "l","b",
-                        "f","f","b"};
+        String[] args={"f", "b", "r","l", "f", "f", "r", "r", "f", "f", "f", "f", "f", "f", "f","f"};
 
-        List<Vector2D> positions= List.of(new Vector2D(2,2),new Vector2D(4,4),new Vector2D(3,4));
+        List<Vector2D> positions= List.of(new Vector2D(2,2),new Vector2D(3,4));
         List<MoveDirection> moveDirectionList= OptionParser.parse(args);
         Simulation simulation=new Simulation(moveDirectionList,positions);
         simulation.run();
 
 
-        Assertions.assertTrue(simulation.getAnimals().get(0).isAt(new Vector2D(1,3)));
-        Assertions.assertTrue(simulation.getAnimals().get(1).isAt(new Vector2D(3,4)));
-        Assertions.assertTrue(simulation.getAnimals().get(2).isAt(new Vector2D(1,4)));
+        Assertions.assertTrue(simulation.getAnimals().get(0).isAt(new Vector2D(3,0)));
+        Assertions.assertTrue(simulation.getAnimals().get(1).isAt(new Vector2D(2,4)));
 
     }
 
     @Test
     public void orientationTest(){
-        String[] args={"f","f","r",
-                        "l", "l","b",
-                        "f","l","b"};
-        List<Vector2D> positions= List.of(new Vector2D(2,2),new Vector2D(4,4),new Vector2D(3,4));
+        String[] args={"f", "b", "r","l", "f", "f", "r", "r", "f", "f", "f", "f", "f", "f", "f","f"};
+
+        List<Vector2D> positions= List.of(new Vector2D(2,2),new Vector2D(3,4));
         List<MoveDirection> moveDirectionList= OptionParser.parse(args);
         Simulation simulation=new Simulation(moveDirectionList,positions);
         simulation.run();
 
 
-        Assertions.assertEquals(simulation.getAnimals().get(0).getDirection(),MapDirection.WEST);
-        Assertions.assertEquals(simulation.getAnimals().get(1).getDirection(),MapDirection.SOUTH);
-        Assertions.assertEquals(simulation.getAnimals().get(2).getDirection(),MapDirection.EAST);
+        Assertions.assertEquals(simulation.getAnimals().get(0).getDirection(),MapDirection.SOUTH);
+        Assertions.assertEquals(simulation.getAnimals().get(1).getDirection(),MapDirection.NORTH);
 
     }
 
