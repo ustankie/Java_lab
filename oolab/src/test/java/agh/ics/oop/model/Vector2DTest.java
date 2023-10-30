@@ -105,7 +105,7 @@ public class Vector2DTest {
     }
 
     @Test
-    public void substractTest(){
+    public void subtractTest(){
         Vector2D v1=new Vector2D(-2,2);
         Vector2D v2=new Vector2D(1,3);
         Vector2D v3=new Vector2D(2,-7);
