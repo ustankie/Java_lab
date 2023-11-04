@@ -1,15 +1,15 @@
 package agh.ics.oop.model;
 
+import agh.ics.oop.World;
 import agh.ics.oop.model.util.MapVisualizer;
-import com.sun.source.util.JavacTask;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class RectangularMap implements WorldMap {
-    Map<Vector2D, Animal> animals = new HashMap<>();
+public class RectangularMap implements WorldMap <Animal,Vector2D>  {
+    private Map<Vector2D,Animal> animals = new HashMap<>();
     List<Animal> animalsOnMap=new ArrayList<Animal>();
 
     private int width;
@@ -30,7 +30,7 @@ public class RectangularMap implements WorldMap {
     }
 
 
-    public Map<Vector2D, Animal> getAnimals() {
+    public Map<Vector2D,Animal> getAnimals() {
         return animals;
     }
 
@@ -74,7 +74,8 @@ public class RectangularMap implements WorldMap {
 
 
     @Override
-    public boolean canMoveTo(Vector2D position) {
+    public boolean canMoveTo(Object position1) {
+        Vector2D position=(Vector2D) position1;
         if(position.getX()>width || position.getY()>height
                 || position.getX()<0 || position.getY()<0)
         {
@@ -87,7 +88,6 @@ public class RectangularMap implements WorldMap {
     @Override
     public String toString() {
         MapVisualizer map=new MapVisualizer(this);
-
-        return map.draw(new  Vector2D(0,0), new Vector2D(width,height));
+        return map.draw(new Vector2D(0,0), new Vector2D(width,height));
     }
 }

@@ -21,7 +21,7 @@ public class AnimalTest {
     public void isAtTest(){
         Animal animal1=new Animal(new Vector2D(1,2));
         Animal animal2=new Animal(new Vector2D(1,3));
-        MoveValidator validator=new MoveValidator() {
+        MoveValidator <Vector2D> validator=new MoveValidator<Vector2D>()  {
             @Override
             public boolean canMoveTo(Vector2D position) {
                 return position.getX() <= 4 && position.getY() <= 4
@@ -48,7 +48,7 @@ public class AnimalTest {
         Animal animal1=new Animal(new Vector2D(1,2));
         Animal animal2=new Animal(new Vector2D(1,3));
 
-        MoveValidator validator=new MoveValidator() {
+        MoveValidator <Vector2D> validator=new MoveValidator<Vector2D>() {
             @Override
             public boolean canMoveTo(Vector2D position) {
                 return position.getX() <= 4 && position.getY() <= 4
@@ -76,7 +76,7 @@ public class AnimalTest {
         Animal animal1=new Animal(new Vector2D(1,2));
         Animal animal2=new Animal(new Vector2D(1,3));
 
-        MoveValidator validator=new MoveValidator() {
+        MoveValidator <Vector2D> validator=new MoveValidator<Vector2D>() {
             @Override
             public boolean canMoveTo(Vector2D position) {
                 return position.getX() <= 4 && position.getY() <= 4
@@ -108,7 +108,7 @@ public class AnimalTest {
         Animal[] animals={animal1,animal2,animal3,animal4};
 
 
-        MoveValidator validator=new MoveValidator() {
+        MoveValidator <Vector2D> validator=new MoveValidator<Vector2D>() {
             @Override
             public boolean canMoveTo(Vector2D position) {
                 return position.getX() <= 4 && position.getY() <= 4

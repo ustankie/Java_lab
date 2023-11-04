@@ -13,8 +13,8 @@ import static java.lang.Math.max;
 public class Simulation {
     private List<Animal> animals;;
     private List<MoveDirection> moveDirectionList;
-    private WorldMap map;
-    public Simulation(List<MoveDirection> moveDirectionList, List<Vector2D> movePositionList, WorldMap map){
+    private WorldMap<Animal,Vector2D> map;
+    public Simulation(List<MoveDirection> moveDirectionList, List<Vector2D> movePositionList, WorldMap<Animal,Vector2D> map){
         this.map=map;
 
         int l=movePositionList.size();
@@ -38,7 +38,7 @@ public class Simulation {
         return moveDirectionList;
     }
 
-    public WorldMap getMap() {
+    public WorldMap<Animal,Vector2D> getMap() {
         return map;
     }
 

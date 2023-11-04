@@ -76,7 +76,7 @@ public class SimulationIT {
 
         RectangularMap map1=new RectangularMap(2,4);
         List<Vector2D> positions1= List.of(new Vector2D(2,2),new Vector2D(1,4),new Vector2D(-1,4),new Vector2D(1,5));
-        List<MoveDirection> moveDirectionList1= OptionParser.parse(args);
+        List<MoveDirection> moveDirectionList1= OptionParser.parse(args1);
         Simulation simulation1=new Simulation(moveDirectionList1,positions1,map1);
         simulation1.run();
 
@@ -113,7 +113,7 @@ public class SimulationIT {
 
         RectangularMap map1=new RectangularMap(2,4);
         List<Vector2D> positions1= List.of(new Vector2D(2,2),new Vector2D(1,4),new Vector2D(-1,4),new Vector2D(1,5));
-        List<MoveDirection> moveDirectionList1= OptionParser.parse(args);
+        List<MoveDirection> moveDirectionList1= OptionParser.parse(args1);
         Simulation simulation1=new Simulation(moveDirectionList1,positions1,map1);
         simulation1.run();
 
@@ -165,7 +165,7 @@ public class SimulationIT {
 
         RectangularMap map1=new RectangularMap(2,4);
         List<Vector2D> positions1= List.of(new Vector2D(2,2),new Vector2D(1,4),new Vector2D(-1,4),new Vector2D(1,5));
-        List<MoveDirection> moveDirectionList1= OptionParser.parse(args);
+        List<MoveDirection> moveDirectionList1= OptionParser.parse(args1);
         Simulation simulation1=new Simulation(moveDirectionList1,positions1,map1);
         simulation1.run();
 
@@ -214,7 +214,7 @@ public class SimulationIT {
 
         RectangularMap map1=new RectangularMap(3,5);
         List<Vector2D> positions1= List.of(new Vector2D(2,2),new Vector2D(3,4),new Vector2D(1,4));
-        List<MoveDirection> moveDirectionList1= OptionParser.parse(args);
+        List<MoveDirection> moveDirectionList1= OptionParser.parse(args1);
         Simulation simulation1=new Simulation(moveDirectionList,positions,map);
         simulation1.run();
 
