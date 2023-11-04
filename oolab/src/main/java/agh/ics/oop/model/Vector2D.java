@@ -27,6 +27,7 @@ public record Vector2D(int x, int y) {
     }
 
     public Vector2D lowerLeft(Vector2D other) {
+
         return new Vector2D(Math.min(x(), other.x), Math.min(y(), other.y));
     }
 
@@ -47,4 +48,11 @@ public record Vector2D(int x, int y) {
     }
 
 
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
 }
