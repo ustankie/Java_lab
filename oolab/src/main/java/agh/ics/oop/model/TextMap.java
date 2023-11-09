@@ -1,9 +1,6 @@
 package agh.ics.oop.model;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class TextMap implements WorldMap<String,Integer> {
 
@@ -111,5 +108,10 @@ public class TextMap implements WorldMap<String,Integer> {
     @Override
     public String toString() {
         return stringsOnMap.toString();
+    }
+
+    @Override
+    public List<String> getElements() {
+        return getStringsOnMap();
     }
 }

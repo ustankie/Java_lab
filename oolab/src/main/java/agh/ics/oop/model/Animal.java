@@ -3,7 +3,7 @@ package agh.ics.oop.model;
 
 import java.util.Objects;
 
-public class Animal {
+public class Animal implements WorldElement {
     private MapDirection direction;
     private Vector2D position;
 
@@ -18,6 +18,7 @@ public class Animal {
     }
 
     //  getters
+    @Override
     public Vector2D getPosition(){
         return this.position;
     }
@@ -45,10 +46,12 @@ public class Animal {
 
 
     //other methods
+    @Override
     public String toString(){
         return direction.toString();
     }
 
+    @Override
     public boolean isAt(Vector2D position){
         return position.equals(this.position);
     }

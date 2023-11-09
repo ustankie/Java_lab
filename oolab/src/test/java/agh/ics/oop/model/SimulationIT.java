@@ -47,7 +47,7 @@ public class SimulationIT {
     }
 
     @Test
-    public void positionTest(){
+    public void positionRectangularMapTest(){
         String[] args={"f", "b", "r",
                 "l", "f", "f",
                 "r", "r", "f",
@@ -84,7 +84,42 @@ public class SimulationIT {
         Assertions.assertTrue(simulation1.getAnimals().get(1).isAt(new Vector2D(0,4)));
     }
     @Test
-    public void orientationTest(){
+    public void positionGrassFieldTest(){
+        String[] args={"f", "b", "r",
+                "l", "f", "f",
+                "r", "r", "f",
+                "f", "f", "f",
+                "r", "b", "f",
+                "f"};
+
+        GrassField map=new GrassField(10);
+        List<Vector2D> positions= List.of(new Vector2D(2,2),new Vector2D(3,4),new Vector2D(1,4));
+        List<MoveDirection> moveDirectionList= OptionParser.parse(args);
+        Simulation simulation=new Simulation(moveDirectionList,positions,map);
+        simulation.run();
+
+        Assertions.assertTrue(simulation.getAnimals().get(0).isAt(new Vector2D(3,3)));
+        Assertions.assertTrue(simulation.getAnimals().get(1).isAt(new Vector2D(4,4)));
+        Assertions.assertTrue(simulation.getAnimals().get(2).isAt(new Vector2D(3,4)));
+
+        String[] args1={"f", "b","r", "l",
+                "f", "f", "r", "r",
+                "f", "f", "f", "f",
+                "r", "b", "f","f"};
+
+        GrassField map1=new GrassField(15);
+        List<Vector2D> positions1= List.of(new Vector2D(2,2),new Vector2D(1,4),new Vector2D(-1,4),new Vector2D(1,5));
+        List<MoveDirection> moveDirectionList1= OptionParser.parse(args1);
+        Simulation simulation1=new Simulation(moveDirectionList1,positions1,map1);
+        simulation1.run();
+
+        Assertions.assertTrue(simulation1.getAnimals().get(0).isAt(new Vector2D(2,5)));
+        Assertions.assertTrue(simulation1.getAnimals().get(1).isAt(new Vector2D(1,3)));
+        Assertions.assertTrue(simulation1.getAnimals().get(2).isAt(new Vector2D(-1,2)));
+        Assertions.assertTrue(simulation1.getAnimals().get(3).isAt(new Vector2D(1,7)));
+    }
+    @Test
+    public void orientationRectangularMapTest(){
         String[] args={"f", "b", "r",
                 "l", "f", "f",
                 "r", "r", "f",
@@ -124,7 +159,48 @@ public class SimulationIT {
     }
 
     @Test
-    public void mapEqualityTest(){
+    public void orientationGrassFieldTest(){
+        String[] args={"f", "b", "r",
+                "l", "f", "f",
+                "r", "r", "f",
+                "f", "f", "f",
+                "r", "b", "f",
+                "f"};
+
+        GrassField map=new GrassField(10);
+        List<Vector2D> positions= List.of(new Vector2D(2,2),new Vector2D(3,4),new Vector2D(1,4));
+        List<MoveDirection> moveDirectionList= OptionParser.parse(args);
+        Simulation simulation=new Simulation(moveDirectionList,positions,map);
+        simulation.run();
+
+        Assertions.assertEquals(simulation.getAnimals().get(0).getDirection(),MapDirection.EAST);
+        Assertions.assertEquals(simulation.getAnimals().get(1).getDirection(),MapDirection.EAST);
+        Assertions.assertEquals(simulation.getAnimals().get(2).getDirection(),MapDirection.EAST);
+
+        String[] args1={"f", "b",
+                "r", "l",
+                "f", "f",
+                "r", "r",
+                "f", "f",
+                "f", "f",
+                "r", "b",
+                "f","f"};
+
+        GrassField map1=new GrassField(15);
+        List<Vector2D> positions1= List.of(new Vector2D(2,2),new Vector2D(1,4),new Vector2D(-1,4),new Vector2D(1,5));
+        List<MoveDirection> moveDirectionList1= OptionParser.parse(args1);
+        Simulation simulation1=new Simulation(moveDirectionList1,positions1,map1);
+        simulation1.run();
+
+
+        Assertions.assertEquals(simulation1.getAnimals().get(0).getDirection(),MapDirection.EAST);
+        Assertions.assertEquals(simulation1.getAnimals().get(1).getDirection(),MapDirection.NORTH);
+        Assertions.assertEquals(simulation1.getAnimals().get(2).getDirection(),MapDirection.SOUTH);
+        Assertions.assertEquals(simulation1.getAnimals().get(3).getDirection(),MapDirection.NORTH);
+
+    }
+    @Test
+    public void mapEqualityRectangularMapTest(){
         String[] args={"f", "b", "r",
                 "l", "f", "f",
                 "r", "r", "f",
@@ -182,10 +258,79 @@ public class SimulationIT {
         Assertions.assertEquals(map1.toString(),mapRes1.toString());
     }
 
+    @Test
+    public void mapEqualityGrassFieldTest(){
+        String[] args={"f", "b", "r",
+                "l", "f", "f",
+                "r", "r", "f",
+                "f", "f", "f",
+                "r", "b", "f",
+                "f"};
+
+        GrassField map=new GrassField(10);
+        List<Vector2D> positions= List.of(new Vector2D(2,2),new Vector2D(3,4),new Vector2D(1,4));
+        List<MoveDirection> moveDirectionList= OptionParser.parse(args);
+        Simulation simulation=new Simulation(moveDirectionList,positions,map);
+        simulation.run();
+
+        Animal animal1Res=new Animal(new Vector2D(3,3));
+        Animal animal2Res=new Animal(new Vector2D(4,4));
+        Animal animal3Res=new Animal(new Vector2D(3,4));
+
+
+        animal1Res.setDirection(MapDirection.EAST);
+        animal2Res.setDirection(MapDirection.EAST);
+        animal3Res.setDirection(MapDirection.EAST);
+
+        GrassField mapRes=new GrassField(10,map.getGrass());
+        mapRes.place(animal1Res);
+        mapRes.place(animal2Res);
+        mapRes.place(animal3Res);
+
+        Assertions.assertEquals(map.toString(),mapRes.toString());
+
+        String[] args1={"f", "b",
+                "r", "l",
+                "f", "f",
+                "r", "r",
+                "f", "f",
+                "f", "f",
+                "r", "b",
+                "f","f"};
+
+        GrassField map1=new GrassField(15);
+        List<Vector2D> positions1= List.of(new Vector2D(2,2),new Vector2D(1,4),new Vector2D(-1,4),new Vector2D(1,5));
+        List<MoveDirection> moveDirectionList1= OptionParser.parse(args1);
+        Simulation simulation1=new Simulation(moveDirectionList1,positions1,map1);
+        simulation1.run();
+
+
+        Animal animal1Res1=new Animal(new Vector2D(2,5));
+        Animal animal2Res1=new Animal(new Vector2D(1,3));
+        Animal animal3Res1=new Animal(new Vector2D(-1,2));
+        Animal animal4Res1=new Animal(new Vector2D(1,7));
+
+        animal1Res1.setDirection(MapDirection.EAST);
+        animal2Res1.setDirection(MapDirection.NORTH);
+        animal3Res1.setDirection(MapDirection.SOUTH);
+        animal4Res1.setDirection(MapDirection.NORTH);
+
+        GrassField mapRes1=new GrassField(15,map1.getGrass());
+        mapRes1.place(animal1Res1);
+        mapRes1.place(animal2Res1);
+        mapRes1.place(animal3Res1);
+        mapRes1.place(animal4Res1);
+
+
+        Assertions.assertEquals(map1.toString(),mapRes1.toString());
+
+
+    }
+
 
 
     @Test
-    public void isInMapTest(){
+    public void isInMapRectangularMapTest(){
         String[] args={"f","r","l","b",
                         "r","f","f","l",
                         "r","r","l","b",
@@ -228,7 +373,7 @@ public class SimulationIT {
     }
 
     @Test
-    public void uniqueTest(){
+    public void uniqueRectangularMapTest(){
         RectangularMap map =new RectangularMap(9,9);
         Animal animal1=new Animal(new Vector2D(2,3));
         Animal animal2=new Animal(new Vector2D(1,4));
@@ -246,14 +391,37 @@ public class SimulationIT {
         animal2.setPosition(new Vector2D(8,8));
         map.place(animal2);
 
-        System.out.println(map.toString());
-        System.out.println(map1.toString());
+
+        Assertions.assertEquals(map.toString(),map1.toString());
+
+    }
+    @Test
+    public void uniqueGrassFieldTest(){
+        GrassField map =new GrassField(10);
+        Animal animal1=new Animal(new Vector2D(2,3));
+        Animal animal2=new Animal(new Vector2D(1,4));
+
+
+        GrassField map1 =new GrassField(10,map.getGrass());
+        map1.place(animal1);
+        map1.place(animal2);
+
+        map.place(animal1);
+        map.place(animal2);
+        map.place(animal2);
+
+        Assertions.assertEquals(map.toString(),map1.toString());
+
+        animal2.setPosition(new Vector2D(8,8));
+        map.place(animal2);
+
+
         Assertions.assertEquals(map.toString(),map1.toString());
 
     }
 
     @Test
-    public void moveExisting(){
+    public void moveExistingRectangularMapTest(){
         Animal animal1=new Animal(new Vector2D(2,3));
         Animal animal2=new Animal(new Vector2D(1,4));
         RectangularMap map =new RectangularMap(9,9);
