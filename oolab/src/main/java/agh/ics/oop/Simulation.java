@@ -3,6 +3,7 @@ package agh.ics.oop;
 import agh.ics.oop.model.Animal;
 import agh.ics.oop.model.MoveDirection;
 import agh.ics.oop.model.Vector2D;
+import agh.ics.oop.model.WorldElement;
 import agh.ics.oop.model.WorldMap;
 
 import java.util.ArrayList;
@@ -13,8 +14,8 @@ import static java.lang.Math.max;
 public class Simulation {
     private List<Animal> animals;;
     private List<MoveDirection> moveDirectionList;
-    private WorldMap<Animal,Vector2D> map;
-    public Simulation(List<MoveDirection> moveDirectionList, List<Vector2D> movePositionList, WorldMap<Animal,Vector2D> map){
+    private WorldMap<WorldElement,Vector2D> map;
+    public Simulation(List<MoveDirection> moveDirectionList, List<Vector2D> movePositionList, WorldMap<WorldElement,Vector2D> map){
         this.map=map;
 
         int l=movePositionList.size();
@@ -23,9 +24,12 @@ public class Simulation {
 
         for (Vector2D vector2D : movePositionList) {
             Animal currAnimal=new Animal(vector2D);
-            if (vector2D!=null && this.map.place(currAnimal))
+            if (vector2D!=null && this.map.place(currAnimal)){
                 this.animals.add(currAnimal);
+            }
+
         }
+
 
         this.moveDirectionList=new ArrayList<MoveDirection>(moveDirectionList);
     }
@@ -38,7 +42,7 @@ public class Simulation {
         return moveDirectionList;
     }
 
-    public WorldMap<Animal,Vector2D> getMap() {
+    public WorldMap<WorldElement,Vector2D> getMap() {
         return map;
     }
 
