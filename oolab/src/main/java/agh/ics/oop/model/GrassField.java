@@ -1,6 +1,6 @@
 package agh.ics.oop.model;
 
-import agh.ics.oop.model.util.MapVisualizer;
+//import agh.ics.oop.model.util.MapVisualizer;
 
 import java.util.*;
 
@@ -72,22 +72,36 @@ public class GrassField extends AbstractWorldMap{
         if(super.canMoveTo(position1)){
             return true;
         }
-        return objectAt((Vector2D) position1) instanceof Grass;
+        try{
+            if(objectAt((Vector2D) position1) instanceof Grass){
+                return true;
+            }
+            else{
+                throw new PositionAlreadyOccupiedException((Vector2D) position1);
+            }
+
+        }catch(PositionAlreadyOccupiedException e){
+            System.out.println(e.getMessage());
+            return false;
+        }
+
     }
 
     @Override
     public boolean place(WorldElement element) {
+
         if(element instanceof Animal){
             return super.place(element);
         }
-        else{
-            if(element instanceof Grass)
-                if (canMoveTo(element.getPosition()) && !isOnMap(element)){
-                    grassOnMap.add((Grass)element);
-                    grass.put(element.getPosition(),(Grass) element);
-                    return true;
-                }
+
+        if(element instanceof Grass) {
+            if (canMoveTo(element.getPosition()) && !isOnMap(element)) {
+                grassOnMap.add((Grass) element);
+                grass.put(element.getPosition(), (Grass) element);
+                return true;
+            }
         }
+
         return false;
     }
 
@@ -150,10 +164,7 @@ public class GrassField extends AbstractWorldMap{
     }
 
 
-    @Override
-    public String toString() {
-        return super.toString(lowerEdge(),upperEdge());
-    }
+
 
     @Override
     public List<WorldElement> getElements(){
@@ -162,6 +173,8 @@ public class GrassField extends AbstractWorldMap{
         return list;
     }
 
-
-
+    @Override
+    public Boundary getCurrentBounds() {
+        return new Boundary(lowerEdge(),upperEdge());
+    }
 }

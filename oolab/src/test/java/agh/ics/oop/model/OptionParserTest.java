@@ -12,10 +12,30 @@ public class OptionParserTest {
 
     @Test
     public void parseTest(){
-        String[] args= {"f", "f", "g", "b", "k","l", "r", "fg"};
+        String[] args= {"f", "f", "b", "l", "r"};
         List<MoveDirection> solved= Arrays.asList(MoveDirection.FORWARD,MoveDirection.FORWARD,
                 MoveDirection.BACKWARD,MoveDirection.LEFT,MoveDirection.RIGHT);
 
         Assertions.assertEquals(solved, OptionParser.parse(args));
     }
+
+    @Test
+    public void illegalArgumentExceptionTest(){
+        String[] args={"f", "b", "rb",
+                "l", "f", "f",
+                "r", "r", "f",
+                "f", "f", "f",
+                "r", "b", "f",
+                "f"};
+
+
+        Exception thrown = Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            OptionParser.parse(args);
+        });
+
+        Assertions.assertEquals(thrown.getMessage(),"rb is not legal move specification");
+
+
+    }
+
 }
