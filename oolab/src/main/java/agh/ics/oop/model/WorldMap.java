@@ -4,6 +4,7 @@ import agh.ics.oop.model.MoveDirection;
 import agh.ics.oop.model.Vector2D;
 
 import java.util.List;
+import java.util.UUID;
 
 /**
  * The interface responsible for interacting with the map of the world.
@@ -46,4 +47,7 @@ public interface WorldMap <T,P> extends MoveValidator {
     T objectAt(P pObject);
 
     List<T> getElements();
+
+
+    int getId();
 }

@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Map;
 
 public abstract class  AbstractWorldMap implements WorldMap<WorldElement,Vector2D> {
+    protected static int curr_id=0;
+    private final int id;
     private Map<Vector2D,Animal> animals = new HashMap<>();
     List<Animal> animalsOnMap=new ArrayList<Animal>();
     List<MapChangeListener> listeners=new ArrayList<MapChangeListener>();
@@ -17,6 +19,16 @@ public abstract class  AbstractWorldMap implements WorldMap<WorldElement,Vector2
 
     public List<Animal> getAnimalsOnMap() {
         return animalsOnMap;
+    }
+
+    public AbstractWorldMap(){
+        this.id=curr_id;
+        curr_id+=1;
+    }
+
+    @Override
+    public int getId() {
+        return id;
     }
 
     public boolean isOnMap(WorldElement animal){
@@ -29,16 +41,20 @@ public abstract class  AbstractWorldMap implements WorldMap<WorldElement,Vector2
     }
     @Override
     public boolean place(WorldElement element) {
+        synchronized (AbstractWorldMap.class){
         if (canMoveTo(element.getPosition()) && !isOnMap(element)) {
             animals.put(element.getPosition(), (Animal) element);
             animalsOnMap.add((Animal) element);
+
             mapChanged("Animal " + element + " placed successfully on position " + element.getPosition());
+
+
             return true;
         }
         return false;
 
 
-    }
+    }}
     @Override
     public boolean isOccupied(Vector2D position) {
         return objectAt(position)!=null;

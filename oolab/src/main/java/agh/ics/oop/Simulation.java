@@ -11,7 +11,7 @@ import java.util.List;
 
 import static java.lang.Math.max;
 
-public class Simulation {
+public class Simulation implements Runnable{
     private List<Animal> animals;;
     private List<MoveDirection> moveDirectionList;
     private WorldMap<WorldElement,Vector2D> map;
@@ -46,21 +46,24 @@ public class Simulation {
         return map;
     }
 
-    public void run(){
-        int currAnimalInd=0;
-        int animalsLength=animals.size();
+    public  void run(){
 
-        Animal currAnimal;
+            int currAnimalInd=0;
+            int animalsLength=animals.size();
+
+            Animal currAnimal;
 
 
-        for(MoveDirection direction: moveDirectionList){
-            currAnimal=animals.get(currAnimalInd);
-            map.move(currAnimal,direction);
+            for(MoveDirection direction: moveDirectionList){
+                currAnimal=animals.get(currAnimalInd);
+                map.move(currAnimal,direction);
 
 //            System.out.println(map);
 
-            currAnimalInd=(currAnimalInd+1)%animalsLength;
+                currAnimalInd=(currAnimalInd+1)%animalsLength;
+
         }
+
     }
 
 

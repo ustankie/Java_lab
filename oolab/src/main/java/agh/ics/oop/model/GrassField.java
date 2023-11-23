@@ -16,6 +16,7 @@ public class GrassField extends AbstractWorldMap{
 
     public GrassField(int grassPieces){
         //atrybuty
+        super();
         animals=super.getAnimals();
         animalsOnMap=super.getAnimalsOnMap();
         this.grassPieces=grassPieces;
@@ -69,20 +70,21 @@ public class GrassField extends AbstractWorldMap{
 
     @Override
     public boolean canMoveTo(Object position1) {
-        if(super.canMoveTo(position1)){
-            return true;
-        }
-        try{
-            if(objectAt((Vector2D) position1) instanceof Grass){
+        synchronized (AbstractWorldMap.class) {
+            if (super.canMoveTo(position1)) {
                 return true;
             }
-            else{
-                throw new PositionAlreadyOccupiedException((Vector2D) position1);
-            }
+            try {
+                if (objectAt((Vector2D) position1) instanceof Grass) {
+                    return true;
+                } else {
+                    throw new PositionAlreadyOccupiedException((Vector2D) position1);
+                }
 
-        }catch(PositionAlreadyOccupiedException e){
-            System.out.println(e.getMessage());
-            return false;
+            } catch (PositionAlreadyOccupiedException e) {
+                System.out.println("Map id: " + this.getId() + ": " + e.getMessage());
+                return false;
+            }
         }
 
     }
