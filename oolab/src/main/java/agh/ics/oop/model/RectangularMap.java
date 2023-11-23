@@ -1,9 +1,6 @@
 package agh.ics.oop.model;
 
-import agh.ics.oop.model.util.MapVisualizer;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -34,17 +31,33 @@ public class RectangularMap extends AbstractWorldMap  {
     @Override
     public boolean canMoveTo(Object position1) {
         Vector2D position=(Vector2D) position1;
-        if(position.getX()>width || position.getY()>height
-                || position.getX()<0 || position.getY()<0)
-        {
+        try{
+            if(position.getX()>width || position.getY()>height
+                    || position.getX()<0 || position.getY()<0)
+            {
+                throw new PositionNotInMapException(position);
+            }
+        }catch(PositionNotInMapException e){
+            System.out.println(e.getMessage());
             return false;
         }
-        return super.canMoveTo(position1);
+
+        try{
+            if(super.canMoveTo(position1)){
+                return true;
+            }
+            throw new PositionAlreadyOccupiedException((Vector2D)position1);
+        }catch(PositionAlreadyOccupiedException e){
+            System.out.println(e.getMessage());
+            return false;
+        }
+
     }
 
 
+
     @Override
-    public String toString() {
-        return super.toString(new Vector2D(0,0),new Vector2D(width,height));
+    public Boundary getCurrentBounds() {
+        return new Boundary(new Vector2D(0,0),new Vector2D(width,height));
     }
 }

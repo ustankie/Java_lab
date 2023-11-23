@@ -2,13 +2,18 @@ package agh.ics.oop.model;
 
 import agh.ics.oop.OptionParser;
 import agh.ics.oop.Simulation;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.util.Arrays;
 import java.util.List;
 
 public class SimulationIT {
+
     @Test
     public void dataInterpretationTest1(){
         String[] args={"f", "b", "r","l", "f", "f", "r", "r", "f", "f", "f", "f", "f", "f", "f","f"};
@@ -58,6 +63,8 @@ public class SimulationIT {
         RectangularMap map=new RectangularMap(3,5);
         List<Vector2D> positions= List.of(new Vector2D(2,2),new Vector2D(3,4),new Vector2D(1,4));
         List<MoveDirection> moveDirectionList= OptionParser.parse(args);
+        ConsoleMapDisplay consoleMapDisplay=new ConsoleMapDisplay();
+        map.subscribe(consoleMapDisplay);
         Simulation simulation=new Simulation(moveDirectionList,positions,map);
         simulation.run();
 
@@ -77,6 +84,8 @@ public class SimulationIT {
         RectangularMap map1=new RectangularMap(2,4);
         List<Vector2D> positions1= List.of(new Vector2D(2,2),new Vector2D(1,4),new Vector2D(-1,4),new Vector2D(1,5));
         List<MoveDirection> moveDirectionList1= OptionParser.parse(args1);
+        ConsoleMapDisplay consoleMapDisplay1=new ConsoleMapDisplay();
+        map1.subscribe(consoleMapDisplay1);
         Simulation simulation1=new Simulation(moveDirectionList1,positions1,map1);
         simulation1.run();
 
@@ -95,6 +104,8 @@ public class SimulationIT {
         GrassField map=new GrassField(10);
         List<Vector2D> positions= List.of(new Vector2D(2,2),new Vector2D(3,4),new Vector2D(1,4));
         List<MoveDirection> moveDirectionList= OptionParser.parse(args);
+        ConsoleMapDisplay consoleMapDisplay=new ConsoleMapDisplay();
+        map.subscribe(consoleMapDisplay);
         Simulation simulation=new Simulation(moveDirectionList,positions,map);
         simulation.run();
 
@@ -110,6 +121,8 @@ public class SimulationIT {
         GrassField map1=new GrassField(15);
         List<Vector2D> positions1= List.of(new Vector2D(2,2),new Vector2D(1,4),new Vector2D(-1,4),new Vector2D(1,5));
         List<MoveDirection> moveDirectionList1= OptionParser.parse(args1);
+        ConsoleMapDisplay consoleMapDisplay1=new ConsoleMapDisplay();
+        map1.subscribe(consoleMapDisplay1);
         Simulation simulation1=new Simulation(moveDirectionList1,positions1,map1);
         simulation1.run();
 
@@ -130,6 +143,8 @@ public class SimulationIT {
         RectangularMap map=new RectangularMap(3,5);
         List<Vector2D> positions= List.of(new Vector2D(2,2),new Vector2D(3,4),new Vector2D(1,4));
         List<MoveDirection> moveDirectionList= OptionParser.parse(args);
+        ConsoleMapDisplay consoleMapDisplay=new ConsoleMapDisplay();
+        map.subscribe(consoleMapDisplay);
         Simulation simulation=new Simulation(moveDirectionList,positions,map);
         simulation.run();
 
@@ -149,6 +164,8 @@ public class SimulationIT {
         RectangularMap map1=new RectangularMap(2,4);
         List<Vector2D> positions1= List.of(new Vector2D(2,2),new Vector2D(1,4),new Vector2D(-1,4),new Vector2D(1,5));
         List<MoveDirection> moveDirectionList1= OptionParser.parse(args1);
+        ConsoleMapDisplay consoleMapDisplay1=new ConsoleMapDisplay();
+        map1.subscribe(consoleMapDisplay1);
         Simulation simulation1=new Simulation(moveDirectionList1,positions1,map1);
         simulation1.run();
 
@@ -170,6 +187,8 @@ public class SimulationIT {
         GrassField map=new GrassField(10);
         List<Vector2D> positions= List.of(new Vector2D(2,2),new Vector2D(3,4),new Vector2D(1,4));
         List<MoveDirection> moveDirectionList= OptionParser.parse(args);
+        ConsoleMapDisplay consoleMapDisplay=new ConsoleMapDisplay();
+        map.subscribe(consoleMapDisplay);
         Simulation simulation=new Simulation(moveDirectionList,positions,map);
         simulation.run();
 
@@ -189,6 +208,8 @@ public class SimulationIT {
         GrassField map1=new GrassField(15);
         List<Vector2D> positions1= List.of(new Vector2D(2,2),new Vector2D(1,4),new Vector2D(-1,4),new Vector2D(1,5));
         List<MoveDirection> moveDirectionList1= OptionParser.parse(args1);
+        ConsoleMapDisplay consoleMapDisplay1=new ConsoleMapDisplay();
+        map1.subscribe(consoleMapDisplay1);
         Simulation simulation1=new Simulation(moveDirectionList1,positions1,map1);
         simulation1.run();
 
@@ -211,6 +232,8 @@ public class SimulationIT {
         RectangularMap map=new RectangularMap(3,5);
         List<Vector2D> positions= List.of(new Vector2D(2,2),new Vector2D(3,4),new Vector2D(1,4));
         List<MoveDirection> moveDirectionList= OptionParser.parse(args);
+        ConsoleMapDisplay consoleMapDisplay=new ConsoleMapDisplay();
+        map.subscribe(consoleMapDisplay);
         Simulation simulation=new Simulation(moveDirectionList,positions,map);
         simulation.run();
 
@@ -242,6 +265,8 @@ public class SimulationIT {
         RectangularMap map1=new RectangularMap(2,4);
         List<Vector2D> positions1= List.of(new Vector2D(2,2),new Vector2D(1,4),new Vector2D(-1,4),new Vector2D(1,5));
         List<MoveDirection> moveDirectionList1= OptionParser.parse(args1);
+        ConsoleMapDisplay consoleMapDisplay1=new ConsoleMapDisplay();
+        map1.subscribe(consoleMapDisplay1);
         Simulation simulation1=new Simulation(moveDirectionList1,positions1,map1);
         simulation1.run();
 
@@ -270,6 +295,8 @@ public class SimulationIT {
         GrassField map=new GrassField(10);
         List<Vector2D> positions= List.of(new Vector2D(2,2),new Vector2D(3,4),new Vector2D(1,4));
         List<MoveDirection> moveDirectionList= OptionParser.parse(args);
+        ConsoleMapDisplay consoleMapDisplay=new ConsoleMapDisplay();
+        map.subscribe(consoleMapDisplay);
         Simulation simulation=new Simulation(moveDirectionList,positions,map);
         simulation.run();
 
@@ -301,6 +328,8 @@ public class SimulationIT {
         GrassField map1=new GrassField(15);
         List<Vector2D> positions1= List.of(new Vector2D(2,2),new Vector2D(1,4),new Vector2D(-1,4),new Vector2D(1,5));
         List<MoveDirection> moveDirectionList1= OptionParser.parse(args1);
+        ConsoleMapDisplay consoleMapDisplay1=new ConsoleMapDisplay();
+        map1.subscribe(consoleMapDisplay1);
         Simulation simulation1=new Simulation(moveDirectionList1,positions1,map1);
         simulation1.run();
 
@@ -339,6 +368,8 @@ public class SimulationIT {
         List<Vector2D> positions= List.of(new Vector2D(2,4),new Vector2D(4,4),
                 new Vector2D(-1,4),new Vector2D(0,0),new Vector2D(6,7));
         List<MoveDirection> moveDirectionList= OptionParser.parse(args);
+        ConsoleMapDisplay consoleMapDisplay=new ConsoleMapDisplay();
+        map.subscribe(consoleMapDisplay);
         Simulation simulation=new Simulation(moveDirectionList,positions,map);
         simulation.run();
 
@@ -360,6 +391,8 @@ public class SimulationIT {
         RectangularMap map1=new RectangularMap(3,5);
         List<Vector2D> positions1= List.of(new Vector2D(2,2),new Vector2D(3,4),new Vector2D(1,4));
         List<MoveDirection> moveDirectionList1= OptionParser.parse(args1);
+        ConsoleMapDisplay consoleMapDisplay1=new ConsoleMapDisplay();
+        map1.subscribe(consoleMapDisplay1);
         Simulation simulation1=new Simulation(moveDirectionList,positions,map);
         simulation1.run();
 
@@ -425,6 +458,8 @@ public class SimulationIT {
         Animal animal1=new Animal(new Vector2D(2,3));
         Animal animal2=new Animal(new Vector2D(1,4));
         RectangularMap map =new RectangularMap(9,9);
+        ConsoleMapDisplay consoleMapDisplay=new ConsoleMapDisplay();
+        map.subscribe(consoleMapDisplay);
 
         map.place(animal1);
 
@@ -437,6 +472,46 @@ public class SimulationIT {
 
 
     }
+
+    @Test
+    public void actualizationsTest(){
+        String[] args={"f", "b", "r",
+                "l", "f", "f",
+                "r", "r", "f",
+                "f", "f", "f",
+                "r", "b", "f",
+                "f"};
+
+        GrassField map=new GrassField(10);
+        List<Vector2D> positions= List.of(new Vector2D(2,2),new Vector2D(3,4),new Vector2D(1,4));
+        List<MoveDirection> moveDirectionList= OptionParser.parse(args);
+        ConsoleMapDisplay consoleMapDisplay=new ConsoleMapDisplay();
+        map.subscribe(consoleMapDisplay);
+        Simulation simulation=new Simulation(moveDirectionList,positions,map);
+        simulation.run();
+
+        Assertions.assertEquals(consoleMapDisplay.getMessagesOccurred(),15);
+
+        String[] args1={"f", "b", "r",
+                "l", "f", "f",
+                "r", "r", "f",
+                "f", "f", "f",
+                "r", "b", "f",
+                "f"};
+
+        RectangularMap map1=new RectangularMap(3,5);
+        List<Vector2D> positions1= List.of(new Vector2D(2,2),new Vector2D(3,4),new Vector2D(1,4));
+        List<MoveDirection> moveDirectionList1= OptionParser.parse(args1);
+        ConsoleMapDisplay consoleMapDisplay1=new ConsoleMapDisplay();
+        map1.subscribe(consoleMapDisplay1);
+        Simulation simulation1=new Simulation(moveDirectionList1,positions1,map1);
+        simulation1.run();
+
+        Assertions.assertEquals(consoleMapDisplay1.getMessagesOccurred(),13);
+    }
+
+
+
 
 
 

@@ -57,7 +57,7 @@ public class Simulation {
             currAnimal=animals.get(currAnimalInd);
             map.move(currAnimal,direction);
 
-            System.out.println(map);
+//            System.out.println(map);
 
             currAnimalInd=(currAnimalInd+1)%animalsLength;
         }
