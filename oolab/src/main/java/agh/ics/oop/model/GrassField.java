@@ -28,7 +28,12 @@ public class GrassField extends AbstractWorldMap{
 
         for (Vector2D grassPosition : randomPositionGenerator) {
             Grass grass1=new Grass(grassPosition);
-            place(grass1);
+            try{
+                place(grass1);
+            }catch(PositionAlreadyOccupiedException e){
+                System.out.println("Map id: " + this.getId() + ": " + e.getMessage());
+            }
+
         }
 
     }
@@ -70,27 +75,29 @@ public class GrassField extends AbstractWorldMap{
 
     @Override
     public boolean canMoveTo(Object position1) {
-        synchronized (AbstractWorldMap.class) {
+
             if (super.canMoveTo(position1)) {
                 return true;
             }
-            try {
+//            try {
                 if (objectAt((Vector2D) position1) instanceof Grass) {
                     return true;
-                } else {
-                    throw new PositionAlreadyOccupiedException((Vector2D) position1);
                 }
+//                } else {
+//                    throw new PositionAlreadyOccupiedException((Vector2D) position1);
+//                }
+//
+//            } catch (PositionAlreadyOccupiedException e) {
+//                System.out.println("Map id: " + this.getId() + ": " + e.getMessage());
+//                return false;
+//            }
+            return false;
 
-            } catch (PositionAlreadyOccupiedException e) {
-                System.out.println("Map id: " + this.getId() + ": " + e.getMessage());
-                return false;
-            }
-        }
 
     }
 
     @Override
-    public boolean place(WorldElement element) {
+    public boolean place(WorldElement element) throws PositionAlreadyOccupiedException {
 
         if(element instanceof Animal){
             return super.place(element);

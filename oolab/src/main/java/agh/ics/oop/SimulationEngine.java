@@ -15,6 +15,7 @@ public class SimulationEngine  {
         this.threads=new ArrayList<>();
         executorService = Executors.newFixedThreadPool(4);
 
+
     }
 
     public void runSync() {
@@ -27,12 +28,14 @@ public class SimulationEngine  {
         for (Simulation simulation : simulationList) {
             Thread thread=new Thread(simulation);
             threads.add(thread);
-            synchronized (this){
+//            synchronized (this)
+            {
                 thread.start();
 //                awaitSimulationsEnd();
             }
 
         }
+
     }
 
     public void awaitSimulationsEnd()  {

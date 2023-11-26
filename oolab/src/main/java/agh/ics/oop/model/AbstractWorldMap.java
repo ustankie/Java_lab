@@ -26,6 +26,10 @@ public abstract class  AbstractWorldMap implements WorldMap<WorldElement,Vector2
         curr_id+=1;
     }
 
+    public static int getCurr_id() {
+        return curr_id;
+    }
+
     @Override
     public int getId() {
         return id;
@@ -40,18 +44,24 @@ public abstract class  AbstractWorldMap implements WorldMap<WorldElement,Vector2
         return false;
     }
     @Override
-    public boolean place(WorldElement element) {
-        synchronized (AbstractWorldMap.class){
-        if (canMoveTo(element.getPosition()) && !isOnMap(element)) {
-            animals.put(element.getPosition(), (Animal) element);
-            animalsOnMap.add((Animal) element);
+    public boolean place(WorldElement element) throws PositionAlreadyOccupiedException{
+        {
 
-            mapChanged("Animal " + element + " placed successfully on position " + element.getPosition());
+            if (canMoveTo(element.getPosition()) && !isOnMap(element)) {
+                animals.put(element.getPosition(), (Animal) element);
+                animalsOnMap.add((Animal) element);
+
+                mapChanged("Animal " + element + " placed successfully on position " + element.getPosition());
+                return true;
 
 
-            return true;
-        }
-        return false;
+            }else{
+                throw new PositionAlreadyOccupiedException((Vector2D) element.getPosition());
+//                return false;
+            }
+
+
+
 
 
     }}
@@ -67,13 +77,14 @@ public abstract class  AbstractWorldMap implements WorldMap<WorldElement,Vector2
     @Override
     public boolean canMoveTo(Object position1) {
         Vector2D position=(Vector2D) position1;
-        try {
-            if (isOccupied(position))
-                throw new PositionAlreadyOccupiedException(position);
-        }catch(PositionAlreadyOccupiedException e){
-            return false;
-        }
+//        try {
+//            if (isOccupied(position))
+//                throw new PositionAlreadyOccupiedException(position);
+//        }catch(PositionAlreadyOccupiedException e){
+//            return false;
+//        }
         return !isOccupied(position);
+//        }
     }
     @Override
     public void move(WorldElement element, MoveDirection direction) {

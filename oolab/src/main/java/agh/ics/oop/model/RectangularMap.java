@@ -31,29 +31,30 @@ public class RectangularMap extends AbstractWorldMap  {
 
     @Override
     public boolean canMoveTo(Object position1) {
-        synchronized (AbstractWorldMap.class) {
+        {
 
 
             Vector2D position = (Vector2D) position1;
-            try {
+//            try {
                 if (position.getX() > width || position.getY() > height
                         || position.getX() < 0 || position.getY() < 0) {
-                    throw new PositionNotInMapException(position);
+//                    throw new PositionNotInMapException(position);
+                    return false;
                 }
-            } catch (PositionNotInMapException e) {
-                System.out.println("Map id: "+this.getId()+": "+e.getMessage());
-                return false;
-            }
+//            } catch (PositionNotInMapException e) {
+//                System.out.println("Map id: "+this.getId()+": "+e.getMessage());
+//                return false;
+//            }
 
-            try {
+//            try {
                 if (super.canMoveTo(position1)) {
                     return true;
                 }
-                throw new PositionAlreadyOccupiedException((Vector2D) position1);
-            } catch (PositionAlreadyOccupiedException e) {
-                System.out.println("Map id: "+this.getId()+": "+e.getMessage());
+//                throw new PositionAlreadyOccupiedException((Vector2D) position1);
+//            } catch (PositionAlreadyOccupiedException e) {
+//                System.out.println("Map id: "+this.getId()+": "+e.getMessage());
                 return false;
-            }
+//            }
         }
     }
 

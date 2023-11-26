@@ -16,9 +16,10 @@ public class ConsoleMapDisplay implements MapChangeListener{
     }
 
     public int getMessagesOccurred() {
-        synchronized (ConsoleMapDisplay.class){
-            return messagesOccurred;
-        }
+
+        return messagesOccurred;
+
 
     }
+
 }

@@ -14,9 +14,20 @@ public class WorldMapTest {
         Animal animal2=new Animal(new Vector2D(-1,9));
         Animal animal3=new Animal(new Vector2D(7,8));
 
-        map.place(animal1);
-        map.place(animal2);
-        map.place(animal3);
+        Assertions.assertDoesNotThrow(()->{
+            map.place(animal1);
+
+        });
+        Assertions.assertThrows(PositionAlreadyOccupiedException.class,()->{
+            map.place(animal2);
+        });
+
+
+        Assertions.assertDoesNotThrow(()->{
+            map.place(animal3);
+
+        });
+
 
         List<WorldElement> elements=List.of(new Animal(new Vector2D(2,3)),
                 new Animal(new Vector2D(7,8)));
@@ -30,9 +41,13 @@ public class WorldMapTest {
         Animal animal2=new Animal(new Vector2D(-1,9));
         Animal animal3=new Animal(new Vector2D(7,8));
 
-        map.place(animal1);
-        map.place(animal2);
-        map.place(animal3);
+
+        Assertions.assertDoesNotThrow(()->{
+            map.place(animal1);
+            map.place(animal2);
+            map.place(animal3);
+
+        });
 
         List<WorldElement> elements=new ArrayList<WorldElement>();
         elements.add(animal1);
@@ -51,8 +66,13 @@ public class WorldMapTest {
         Animal animal=new Animal(new Vector2D(2,2));
         Grass grass=new Grass(new Vector2D(1,1));
 
-        grassField.place(animal);
-        grassField.place(grass);
+
+        Assertions.assertDoesNotThrow(()->{
+            grassField.place(animal);
+            grassField.place(grass);
+
+        });
+
 
         Assertions.assertEquals(grassField.objectAt(new Vector2D(2,2)), animal);
         Assertions.assertEquals(grassField.objectAt(new Vector2D(1,1)),grass);
@@ -67,10 +87,16 @@ public class WorldMapTest {
         Grass grass=new Grass(new Vector2D(1,1));
         Grass grass2=new Grass(new Vector2D(-1,-8));
 
-        grassField.place(animal);
-        grassField.place(animal2);
-        grassField.place(grass);
-        grassField.place(grass2);
+
+
+        Assertions.assertDoesNotThrow(()->{
+            grassField.place(animal);
+            grassField.place(animal2);
+            grassField.place(grass);
+            grassField.place(grass2);
+
+        });
+
 
         Assertions.assertTrue(grassField.isOccupied(new Vector2D(2,2)));
         Assertions.assertTrue(grassField.isOccupied(new Vector2D(1,1)));
@@ -85,8 +111,14 @@ public class WorldMapTest {
         Animal animal2=new Animal(new Vector2D(1,3));
 
         GrassField grassField=new GrassField(15);
-        grassField.place(animal1);
-        grassField.place(animal2);
+
+        Assertions.assertDoesNotThrow(()->{
+
+            grassField.place(animal1);
+            grassField.place(animal2);
+        });
+
+
 
         grassField.move(animal1,MoveDirection.LEFT);
         grassField.move(animal2,MoveDirection.LEFT);
@@ -105,7 +137,13 @@ public class WorldMapTest {
         Assertions.assertEquals(grassField.objectAt(new Vector2D(0,1)), animal1);
         Assertions.assertEquals(grassField.objectAt(new Vector2D(1,4)), animal2);
 
-        grassField.place(new Grass(new Vector2D(1,2)));
+        Assertions.assertDoesNotThrow(()->{
+
+            grassField.place(new Grass(new Vector2D(1,2)));
+        });
+
+
+
         grassField.move(animal1,MoveDirection.LEFT);
         grassField.move(animal2,MoveDirection.LEFT);
 
@@ -128,8 +166,12 @@ public class WorldMapTest {
         Animal animal2=new Animal(new Vector2D(1,3));
 
         GrassField grassField=new GrassField(15);
-        grassField.place(animal1);
-        grassField.place(animal2);
+
+        Assertions.assertDoesNotThrow(()->{
+            grassField.place(animal1);
+            grassField.place(animal2);
+        });
+
 
         grassField.move(animal1,MoveDirection.LEFT);
         grassField.move(animal2,MoveDirection.LEFT);
@@ -165,13 +207,25 @@ public class WorldMapTest {
         Animal animal2=new Animal(new Vector2D(-1,9));
         Animal animal3=new Animal(new Vector2D(7,8));
 
-        boolean res1=map.place(animal1);
-        boolean res2=map.place(animal2);
-        boolean res3=map.place(animal3);
+        Assertions.assertDoesNotThrow(()->{
+            boolean res1=map.place(animal1);
 
-        Assertions.assertTrue(res1);
-        Assertions.assertTrue(res3);
-        Assertions.assertFalse(res2);
+        });
+
+        Assertions.assertThrows(PositionAlreadyOccupiedException.class,()->{
+            boolean res2=map.place(animal2);
+        });
+
+
+
+        Assertions.assertDoesNotThrow(()->{
+            boolean res3=map.place(animal3);
+
+        });
+
+
+
+
 
         Assertions.assertEquals(map.objectAt(new Vector2D(2,3)),animal1);
         Assertions.assertNull(map.objectAt(new Vector2D(-1, 9)));
@@ -182,13 +236,22 @@ public class WorldMapTest {
         Animal animal5=new Animal(new Vector2D(-1,9));
         Animal animal6=new Animal(new Vector2D(1,0));
 
-        boolean res4=map1.place(animal4);
-        boolean res5=map1.place(animal5);
-        boolean res6=map1.place(animal6);
+        Assertions.assertDoesNotThrow(()->{
+            boolean res4=map1.place(animal4);
 
-        Assertions.assertTrue(res4);
-        Assertions.assertFalse(res5);
-        Assertions.assertTrue(res6);
+        });
+
+        Assertions.assertThrows(PositionAlreadyOccupiedException.class,()->{
+            boolean res5=map1.place(animal5);
+        });
+
+
+
+        Assertions.assertDoesNotThrow(()->{
+            boolean res6=map1.place(animal6);
+
+        });
+
 
         Assertions.assertEquals(map1.objectAt(new Vector2D(2,2)),animal4);
         Assertions.assertNull(map1.objectAt(new Vector2D(-1, 9)));
