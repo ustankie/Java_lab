@@ -12,6 +12,7 @@ public class RectangularMap extends AbstractWorldMap  {
     private int height;
 
     public RectangularMap(int width, int height){
+        super();
         animalsOnMap=super.getAnimalsOnMap();
         animals=super.getAnimals();
         this.width=width;
@@ -30,28 +31,31 @@ public class RectangularMap extends AbstractWorldMap  {
 
     @Override
     public boolean canMoveTo(Object position1) {
-        Vector2D position=(Vector2D) position1;
-        try{
-            if(position.getX()>width || position.getY()>height
-                    || position.getX()<0 || position.getY()<0)
-            {
-                throw new PositionNotInMapException(position);
-            }
-        }catch(PositionNotInMapException e){
-            System.out.println(e.getMessage());
-            return false;
-        }
+        {
 
-        try{
-            if(super.canMoveTo(position1)){
-                return true;
-            }
-            throw new PositionAlreadyOccupiedException((Vector2D)position1);
-        }catch(PositionAlreadyOccupiedException e){
-            System.out.println(e.getMessage());
-            return false;
-        }
 
+            Vector2D position = (Vector2D) position1;
+//            try {
+                if (position.getX() > width || position.getY() > height
+                        || position.getX() < 0 || position.getY() < 0) {
+//                    throw new PositionNotInMapException(position);
+                    return false;
+                }
+//            } catch (PositionNotInMapException e) {
+//                System.out.println("Map id: "+this.getId()+": "+e.getMessage());
+//                return false;
+//            }
+
+//            try {
+                if (super.canMoveTo(position1)) {
+                    return true;
+                }
+//                throw new PositionAlreadyOccupiedException((Vector2D) position1);
+//            } catch (PositionAlreadyOccupiedException e) {
+//                System.out.println("Map id: "+this.getId()+": "+e.getMessage());
+                return false;
+//            }
+        }
     }
 
 

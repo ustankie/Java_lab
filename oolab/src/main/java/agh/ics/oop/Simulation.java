@@ -1,18 +1,16 @@
 package agh.ics.oop;
 
-import agh.ics.oop.model.Animal;
-import agh.ics.oop.model.MoveDirection;
-import agh.ics.oop.model.Vector2D;
-import agh.ics.oop.model.WorldElement;
-import agh.ics.oop.model.WorldMap;
+import agh.ics.oop.model.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import static java.lang.Math.max;
 
-public class Simulation {
-    private List<Animal> animals;;
+public class Simulation implements Runnable{
+    private List<Animal> animals;
+    private static AtomicInteger allPlaced=new AtomicInteger();
     private List<MoveDirection> moveDirectionList;
     private WorldMap<WorldElement,Vector2D> map;
     public Simulation(List<MoveDirection> moveDirectionList, List<Vector2D> movePositionList, WorldMap<WorldElement,Vector2D> map){
@@ -24,14 +22,25 @@ public class Simulation {
 
         for (Vector2D vector2D : movePositionList) {
             Animal currAnimal=new Animal(vector2D);
-            if (vector2D!=null && this.map.place(currAnimal)){
-                this.animals.add(currAnimal);
+            try{
+                if (vector2D!=null && this.map.place(currAnimal)){
+                    this.animals.add(currAnimal);
+                }
+            }catch(PositionAlreadyOccupiedException e){
+//                System.out.println("Map id: " + map.getId() + ": " + e.getMessage());
+
             }
+
 
         }
 
 
         this.moveDirectionList=new ArrayList<MoveDirection>(moveDirectionList);
+        allPlaced.incrementAndGet();
+    }
+
+    public static AtomicInteger getAllPlaced() {
+        return allPlaced;
     }
 
     public List<Animal> getAnimals(){
@@ -46,21 +55,28 @@ public class Simulation {
         return map;
     }
 
-    public void run(){
-        int currAnimalInd=0;
-        int animalsLength=animals.size();
+    public  void run(){
 
-        Animal currAnimal;
+            int currAnimalInd=0;
+            int animalsLength=animals.size();
+
+            Animal currAnimal;
+
+            if(animalsLength==0){
+                return;
+            }
 
 
-        for(MoveDirection direction: moveDirectionList){
-            currAnimal=animals.get(currAnimalInd);
-            map.move(currAnimal,direction);
+            for(MoveDirection direction: moveDirectionList){
+                currAnimal=animals.get(currAnimalInd);
+                map.move(currAnimal,direction);
 
 //            System.out.println(map);
 
-            currAnimalInd=(currAnimalInd+1)%animalsLength;
+                currAnimalInd=(currAnimalInd+1)%animalsLength;
+
         }
+
     }
 
 

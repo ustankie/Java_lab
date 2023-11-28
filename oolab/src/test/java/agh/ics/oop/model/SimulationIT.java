@@ -246,9 +246,12 @@ public class SimulationIT {
         animal3Res.setDirection(MapDirection.EAST);
 
         RectangularMap mapRes=new RectangularMap(3,5);
-        mapRes.place(animal1Res);
-        mapRes.place(animal2Res);
-        mapRes.place(animal3Res);
+        Assertions.assertDoesNotThrow(()->{
+            mapRes.place(animal1Res);
+            mapRes.place(animal2Res);
+            mapRes.place(animal3Res);
+        });
+
 
         Assertions.assertEquals(map.toString(),mapRes.toString());
 
@@ -277,8 +280,12 @@ public class SimulationIT {
         animal2Res1.setDirection(MapDirection.NORTH);
 
         RectangularMap mapRes1=new RectangularMap(2,4);
-        mapRes1.place(animal1Res1);
-        mapRes1.place(animal2Res1);
+
+        Assertions.assertDoesNotThrow(()->{
+            mapRes1.place(animal1Res1);
+            mapRes1.place(animal2Res1);
+        });
+
 
         Assertions.assertEquals(map1.toString(),mapRes1.toString());
     }
@@ -310,9 +317,12 @@ public class SimulationIT {
         animal3Res.setDirection(MapDirection.EAST);
 
         GrassField mapRes=new GrassField(10,map.getGrass());
-        mapRes.place(animal1Res);
-        mapRes.place(animal2Res);
-        mapRes.place(animal3Res);
+        Assertions.assertDoesNotThrow(()->{
+            mapRes.place(animal1Res);
+            mapRes.place(animal2Res);
+            mapRes.place(animal3Res);
+
+        });
 
         Assertions.assertEquals(map.toString(),mapRes.toString());
 
@@ -345,10 +355,13 @@ public class SimulationIT {
         animal4Res1.setDirection(MapDirection.NORTH);
 
         GrassField mapRes1=new GrassField(15,map1.getGrass());
-        mapRes1.place(animal1Res1);
-        mapRes1.place(animal2Res1);
-        mapRes1.place(animal3Res1);
-        mapRes1.place(animal4Res1);
+        Assertions.assertDoesNotThrow(()->{
+            mapRes1.place(animal1Res1);
+            mapRes1.place(animal2Res1);
+            mapRes1.place(animal3Res1);
+            mapRes1.place(animal4Res1);
+
+        });
 
 
         Assertions.assertEquals(map1.toString(),mapRes1.toString());
@@ -411,18 +424,29 @@ public class SimulationIT {
         Animal animal1=new Animal(new Vector2D(2,3));
         Animal animal2=new Animal(new Vector2D(1,4));
 
-        map.place(animal1);
-        map.place(animal2);
-        map.place(animal2);
+        Assertions.assertDoesNotThrow(()->{
+            map.place(animal1);
+            map.place(animal2);
+        });
+
+        Assertions.assertThrows(PositionAlreadyOccupiedException.class,()->{
+            map.place(animal2);
+        });
+
 
         RectangularMap map1 =new RectangularMap(9,9);
-        map1.place(animal1);
-        map1.place(animal2);
+        Assertions.assertDoesNotThrow(()->{
+            map1.place(animal1);
+            map1.place(animal2);
+        });
 
         Assertions.assertEquals(map.toString(),map1.toString());
 
         animal2.setPosition(new Vector2D(8,8));
-        map.place(animal2);
+        Assertions.assertThrows(PositionAlreadyOccupiedException.class,()->{
+            map.place(animal2);
+        });
+
 
 
         Assertions.assertEquals(map.toString(),map1.toString());
@@ -436,17 +460,27 @@ public class SimulationIT {
 
 
         GrassField map1 =new GrassField(10,map.getGrass());
-        map1.place(animal1);
-        map1.place(animal2);
+        Assertions.assertDoesNotThrow(()->{
+            map1.place(animal1);
+            map1.place(animal2);
 
-        map.place(animal1);
-        map.place(animal2);
-        map.place(animal2);
+            map.place(animal1);
+            map.place(animal2);
+        });
+
+        Assertions.assertThrows(PositionAlreadyOccupiedException.class,()->{
+            map.place(animal2);
+        });
+
+
 
         Assertions.assertEquals(map.toString(),map1.toString());
 
         animal2.setPosition(new Vector2D(8,8));
-        map.place(animal2);
+        Assertions.assertThrows(PositionAlreadyOccupiedException.class,()->{
+            map.place(animal2);
+        });
+
 
 
         Assertions.assertEquals(map.toString(),map1.toString());
@@ -461,12 +495,19 @@ public class SimulationIT {
         ConsoleMapDisplay consoleMapDisplay=new ConsoleMapDisplay();
         map.subscribe(consoleMapDisplay);
 
-        map.place(animal1);
+        Assertions.assertDoesNotThrow(()->{
+            map.place(animal1);
+
+        });
+
 
         map.move(animal2,MoveDirection.BACKWARD);
 
         RectangularMap map1 =new RectangularMap(9,9);
-        map1.place(animal1);
+        Assertions.assertDoesNotThrow(()->{
+            map1.place(animal1);
+        });
+
 
         Assertions.assertEquals(map.toString(),map1.toString());
 

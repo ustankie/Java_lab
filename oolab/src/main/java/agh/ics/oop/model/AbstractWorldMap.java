@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Map;
 
 public abstract class  AbstractWorldMap implements WorldMap<WorldElement,Vector2D> {
+    protected static int curr_id=0;
+    private final int id;
     private Map<Vector2D,Animal> animals = new HashMap<>();
     List<Animal> animalsOnMap=new ArrayList<Animal>();
     List<MapChangeListener> listeners=new ArrayList<MapChangeListener>();
@@ -19,6 +21,20 @@ public abstract class  AbstractWorldMap implements WorldMap<WorldElement,Vector2
         return animalsOnMap;
     }
 
+    public AbstractWorldMap(){
+        this.id=curr_id;
+        curr_id+=1;
+    }
+
+    public static int getCurr_id() {
+        return curr_id;
+    }
+
+    @Override
+    public int getId() {
+        return id;
+    }
+
     public boolean isOnMap(WorldElement animal){
         for (WorldElement value : animalsOnMap) {
             if (value == animal) {
@@ -28,17 +44,27 @@ public abstract class  AbstractWorldMap implements WorldMap<WorldElement,Vector2
         return false;
     }
     @Override
-    public boolean place(WorldElement element) {
-        if (canMoveTo(element.getPosition()) && !isOnMap(element)) {
-            animals.put(element.getPosition(), (Animal) element);
-            animalsOnMap.add((Animal) element);
-            mapChanged("Animal " + element + " placed successfully on position " + element.getPosition());
-            return true;
-        }
-        return false;
+    public boolean place(WorldElement element) throws PositionAlreadyOccupiedException{
+        {
+
+            if (canMoveTo(element.getPosition()) && !isOnMap(element)) {
+                animals.put(element.getPosition(), (Animal) element);
+                animalsOnMap.add((Animal) element);
+
+                mapChanged("Animal " + element + " placed successfully on position " + element.getPosition());
+                return true;
 
 
-    }
+            }else{
+                throw new PositionAlreadyOccupiedException((Vector2D) element.getPosition());
+//                return false;
+            }
+
+
+
+
+
+    }}
     @Override
     public boolean isOccupied(Vector2D position) {
         return objectAt(position)!=null;
@@ -51,13 +77,14 @@ public abstract class  AbstractWorldMap implements WorldMap<WorldElement,Vector2
     @Override
     public boolean canMoveTo(Object position1) {
         Vector2D position=(Vector2D) position1;
-        try {
-            if (isOccupied(position))
-                throw new PositionAlreadyOccupiedException(position);
-        }catch(PositionAlreadyOccupiedException e){
-            return false;
-        }
+//        try {
+//            if (isOccupied(position))
+//                throw new PositionAlreadyOccupiedException(position);
+//        }catch(PositionAlreadyOccupiedException e){
+//            return false;
+//        }
         return !isOccupied(position);
+//        }
     }
     @Override
     public void move(WorldElement element, MoveDirection direction) {
