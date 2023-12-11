@@ -64,4 +64,9 @@ public class RectangularMap extends AbstractWorldMap  {
     public Boundary getCurrentBounds() {
         return new Boundary(new Vector2D(0,0),new Vector2D(width,height));
     }
+
+    @Override
+    public AbstractWorldMap clone(){
+        return new RectangularMap(this.width,this.height);
+    }
 }

@@ -2,10 +2,9 @@ package agh.ics.oop.presenter;
 
 import agh.ics.oop.OptionParser;
 import agh.ics.oop.Simulation;
-import agh.ics.oop.SimulationEngine;
+import agh.ics.oop.SimulationApp;
 import agh.ics.oop.model.*;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
@@ -19,7 +18,11 @@ import javafx.scene.layout.RowConstraints;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 public class SimulationPresenter implements MapChangeListener {
     public GridPane mess;
@@ -31,18 +34,24 @@ public class SimulationPresenter implements MapChangeListener {
     private Label message;
     @FXML
     private TextField parametersTextField;
-    private WorldMap worldMap;
+    private AbstractWorldMap worldMap;
+    private AbstractWorldMap templateWorldMap;
     @FXML
     private Label infoLabel;
+    List<SimulationApp> listeners=new ArrayList<>();
 
     private String[] args;
     private static final String EMPTY_CELL = " ";
+    ExecutorService executorService;
 
 
-
-    public void setWorldMap(WorldMap map) {
+    public void setWorldMap(AbstractWorldMap map) {
         this.worldMap = map;
 
+    }
+
+    public void setTemplateWorldMap(AbstractWorldMap templateWorldMap) {
+        this.templateWorldMap = templateWorldMap;
     }
 
     public void drawMap(WorldMap worldMap){
@@ -128,14 +137,56 @@ public class SimulationPresenter implements MapChangeListener {
 
 
     public void onSimulationStartClicked() {
+        //clear map from animals
+        this.worldMap=templateWorldMap.clone();
+        System.out.println(worldMap);
+        newSimulationSet();
+
         args=parametersTextField.getText().split(" ");
         List<MoveDirection> directions = OptionParser.parse(args);
         List<Vector2D> positions= List.of(new Vector2D(2,2),new Vector2D(3,4));
         Simulation simulation=new Simulation(directions,positions,worldMap);
+        System.out.println("printed");
 
-//        mapChanged(worldMap,"");
 
-        SimulationEngine simulationEngine=new SimulationEngine(List.of(simulation));
-        simulationEngine.runAsync();
+
+        executorService.submit(simulation);
+
+
+    }
+
+    public void awaitSimulationsEnd()  {
+        executorService.shutdown();
+        try{
+            if(!executorService.awaitTermination(10, TimeUnit.SECONDS)){
+                executorService.shutdownNow();
+            }
+        }catch (InterruptedException ignored) {
+
+        }
+
+    }
+
+    public void subscribe(SimulationApp listener){
+        for(SimulationApp l:listeners){
+            if(l==listener)
+                return;
+        }
+        listeners.add(listener);
+    }
+
+    public void unsubscribe(SimulationApp listener){
+        listeners.remove(listener);
+    }
+
+    public void newSimulationSet(){
+        for(SimulationApp l:listeners){
+            l.createNewWindow(worldMap);
+        }
+    }
+
+
+    public void setExecutorService(ExecutorService executorService) {
+        this.executorService = executorService;
     }
 }

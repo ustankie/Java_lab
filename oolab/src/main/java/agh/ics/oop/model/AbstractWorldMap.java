@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public abstract class  AbstractWorldMap implements WorldMap<WorldElement,Vector2D> {
     protected static int curr_id=0;
@@ -13,6 +15,7 @@ public abstract class  AbstractWorldMap implements WorldMap<WorldElement,Vector2
     private Map<Vector2D,Animal> animals = new HashMap<>();
     List<Animal> animalsOnMap=new ArrayList<Animal>();
     List<MapChangeListener> listeners=new ArrayList<MapChangeListener>();
+
     public Map<Vector2D,Animal> getAnimals() {
         return animals;
     }
@@ -77,14 +80,9 @@ public abstract class  AbstractWorldMap implements WorldMap<WorldElement,Vector2
     @Override
     public boolean canMoveTo(Object position1) {
         Vector2D position=(Vector2D) position1;
-//        try {
-//            if (isOccupied(position))
-//                throw new PositionAlreadyOccupiedException(position);
-//        }catch(PositionAlreadyOccupiedException e){
-//            return false;
-//        }
+
         return !isOccupied(position);
-//        }
+
     }
     @Override
     public void move(WorldElement element, MoveDirection direction) {
@@ -131,5 +129,6 @@ public abstract class  AbstractWorldMap implements WorldMap<WorldElement,Vector2
             l.mapChanged(this,message);
         }
     }
+    public abstract AbstractWorldMap clone();
 
 }

@@ -82,9 +82,6 @@ public class Simulation implements Runnable{
                 }
                 map.move(currAnimal,direction);
 
-
-//            System.out.println(map);
-
                 currAnimalInd=(currAnimalInd+1)%animalsLength;
 
         }
