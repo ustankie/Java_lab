@@ -22,9 +22,15 @@ public class Simulation implements Runnable{
 
         for (Vector2D vector2D : movePositionList) {
             Animal currAnimal=new Animal(vector2D);
+            try {
+                Thread.sleep(800);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
             try{
                 if (vector2D!=null && this.map.place(currAnimal)){
                     this.animals.add(currAnimal);
+
                 }
             }catch(PositionAlreadyOccupiedException e){
 //                System.out.println("Map id: " + map.getId() + ": " + e.getMessage());
@@ -69,9 +75,12 @@ public class Simulation implements Runnable{
 
             for(MoveDirection direction: moveDirectionList){
                 currAnimal=animals.get(currAnimalInd);
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
                 map.move(currAnimal,direction);
-
-//            System.out.println(map);
 
                 currAnimalInd=(currAnimalInd+1)%animalsLength;
 

@@ -186,4 +186,9 @@ public class GrassField extends AbstractWorldMap{
     public Boundary getCurrentBounds() {
         return new Boundary(lowerEdge(),upperEdge());
     }
+
+    @Override
+    public AbstractWorldMap clone(){
+        return new GrassField(this.grassPieces,grass);
+    }
 }
